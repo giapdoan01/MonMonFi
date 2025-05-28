@@ -4,10 +4,10 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <nav >
       <div className="container-fluid">
         <Link href="/" className="navbar-brand fw-bold text-primary fs-4">
-          GameHub
+          MonMonFI
         </Link>
 
         <button

@@ -6,13 +6,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract MyCharacterNFT is ERC721URIStorage, Ownable {
     uint256 public totalMinted = 0;
-    uint256 public constant MAX_SUPPLY = 10;
+    uint256 public constant MAX_SUPPLY = 1;
 
     constructor(string[] memory uris)
         ERC721("MyCharacter", "CHAR")
         Ownable(msg.sender)
     {
-        require(uris.length == MAX_SUPPLY, "Need exactly 10 URIs");
+        require(uris.length == MAX_SUPPLY, "Need exactly 1 URIs");
 
         for (uint256 i = 0; i < MAX_SUPPLY; i++) {
             _safeMint(msg.sender, i + 1);

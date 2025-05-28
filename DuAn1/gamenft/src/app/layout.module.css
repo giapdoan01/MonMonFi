@@ -1,0 +1,34 @@
+.body {
+  margin: 0;
+  padding: 0;
+  position: relative; /* để chứa các phần tử con tuyệt đối */
+  min-height: 100vh;
+  font-family: var(--font-geist-sans);
+}
+
+.background {
+  position: fixed; /* hoặc absolute nếu muốn */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/img/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(4px);
+  z-index: 0; /* nằm dưới nội dung */
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1; /* nằm trên background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* bỏ background-image cũ khỏi đây */
+}
+
+.main {
+  flex: 1;
+}
