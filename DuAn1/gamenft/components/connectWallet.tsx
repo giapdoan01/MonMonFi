@@ -1,16 +1,10 @@
-// components/connectWallet.tsx
+
 "use client"
 import { useState } from "react"
 import { Wallet, LogOut } from 'lucide-react'
 import "./connect-wallet.css"
 
-export default function ConnectWallet({
-  address,
-  setAddress,
-}: {
-  address: string;
-  setAddress: (addr: string) => void;
-}) {
+export default function ConnectWallet({address, setAddress}: {address: string; setAddress: (addr: string) => void;}) {
   const [isConnecting, setIsConnecting] = useState(false)
 
   const connect = async () => {

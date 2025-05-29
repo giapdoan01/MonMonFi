@@ -11,7 +11,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/img/background.jpg');
+  /* background-image: url('/img/background.jpg'); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,56 +24,88 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
   height: 100%;
+  padding: 0 40px;
 }
 
-.ConnectWallet1 {
-  width: 33.33%;          
-  height: 85%;         
+.container {
+  width: 33.33%;
+  height: 85%;
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
   display: flex;
-  align-items: flex-end;   
-  justify-content: center;
-  padding: 12px;
-  margin-left: 20px;
+  flex-direction: column;
+  padding: 30px;
   margin-top: -50px;
-  box-shadow: 0 25px 50px -12px rgba(240, 186, 125, 0.4), 0 0 30px rgba(251, 169, 115, 0.2), inset 0 1px 0
-    rgba(252, 215, 159, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(240, 186, 125, 0.4), 0 0 30px rgba(251, 169, 115, 0.2), inset 0 1px 0 rgba(252, 215, 159, 0.1);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
-.ConnectWallet1::before {
+
+.container::before {
   content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.8s ease;
 }
-.ConnectWallet1:hover::before{
- left: 100%;
-}
-.ConnectWallet1:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 35px 60px -12px rgba(236, 208, 136, 0.5), 0 0 4px rgba(244, 190, 30, 0.3), inset 0 1px 0
-    rgba(255, 255, 255, 0.15);
 
+.container:hover::before {
+  left: 100%;
 }
-.ConnectWallet2 {
-  width: 33.33%;          
-  height: 85%;         
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 35px 60px -12px rgba(236, 208, 136, 0.5), 0 0 40px rgba(244, 190, 30, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.nftSection {
+  flex: 1;
   display: flex;
-  align-items: center;   
+  align-items: center;
   justify-content: center;
-  padding: 12px;
-  margin-left: 20px;
-  margin-top: -50px;
-  box-shadow: 0 25px 50px -12px rgba(240, 186, 125, 0.4), 0 0 30px rgba(251, 169, 115, 0.2), inset 0 1px 0
-    rgba(252, 215, 159, 0.1);
+  margin-bottom: 30px;
+}
+
+.walletSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(240, 186, 125, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .container {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+  
+  .content {
+    justify-content: center;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 95%;
+    height: 80%;
+    padding: 20px;
+  }
+  
+  .nftSection {
+    margin-bottom: 20px;
+  }
 }

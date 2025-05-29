@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import "components/header.css";
 
 export default function Navbar() {
   return (
     <nav >
       <div className="container-fluid">
-        <Link href="/" className="navbar-brand fw-bold text-primary fs-4">
-          MonMonFI
+        <Link href="/" >
+            <img src="/img/LoGoMonfi.png" alt="Logo" className="logo"/>
         </Link>
 
         <button
