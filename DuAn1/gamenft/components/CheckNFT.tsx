@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { ethers, type Eip1193Provider } from "ethers"; // import type chuẩn
 import MonMonFINFT from "abi/MonMonFINFT.json";
 import "./CheckNFT.css";
 import { useNFT } from "./NFTcontext";
@@ -11,6 +11,12 @@ const MAX_SUPPLY = 10; // Số lượng NFT tối đa của contract
 
 interface CheckNFTProps {
   address: string;
+}
+
+declare global {
+  interface Window {
+    ethereum?: Eip1193Provider;  // khai báo kiểu chuẩn
+  }
 }
 
 export default function CheckNFT({ address }: CheckNFTProps) {
@@ -29,7 +35,7 @@ export default function CheckNFT({ address }: CheckNFTProps) {
 
     async function fetchNFT() {
       try {
-        if (!(window as any).ethereum) {
+        if (!window.ethereum) {
           setStatus("Vui lòng cài MetaMask!");
           setNftImage(null);
           return;
@@ -37,16 +43,16 @@ export default function CheckNFT({ address }: CheckNFTProps) {
 
         setStatus("Đang kiểm tra NFT...");
         setNftImage(null);
-        const provider = new ethers.BrowserProvider((window as any).ethereum);
 
-        // Nếu chỉ gọi các hàm đọc (view), dùng provider không cần signer
+        // Tạo provider chuẩn, window.ethereum đã có kiểu đúng
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
         const contract = new ethers.Contract(CONTRACT_ADDRESS, MonMonFINFT.abi, provider);
 
         let found = false;
         for (let tokenId = 1; tokenId <= MAX_SUPPLY; tokenId++) {
           try {
             const ownerAddress = await contract.ownerOf(tokenId);
-            // ownerAddress là Address object (ethers v6), convert về string rồi so sánh
             if (ownerAddress.toString().toLowerCase() === address.toLowerCase()) {
               const uri: string = await contract.tokenURI(tokenId);
               const url = uri.startsWith("ipfs://")
