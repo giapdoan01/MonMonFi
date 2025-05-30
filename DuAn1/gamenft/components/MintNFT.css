@@ -1,0 +1,52 @@
+.mint-Button {
+  background: linear-gradient(to right, #ffbb70, #ffec9e, #fffbda);
+  border: none;
+  border-radius: 15px;
+  padding: 5px 20px;
+  font-weight: bold;
+  color: rgb(255, 141, 27);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Jomhuria";
+  font-size: 30px;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+}
+.mint-Button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.637), transparent);
+  transition: left 0.8s ease;
+}
+
+.mint-Button:hover::before {
+  left: 100%;
+}
+
+.mint-Button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(245, 158, 11, 0.4);
+  background: linear-gradient(to right, #fffbda, #ffec9e, #ffbb70);
+}
+.mint-Button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: linear-gradient(to right, #dfdfde, #7e7e7e, #7b7a79);
+}
+.mint-info-error{
+    font-family: "Jomhuria";
+    color: rgba(255, 68, 68, 0.622);
+    font-size: 20pt;
+}
+.mint-info-success{
+    font-family: "Jomhuria";
+    color: rgba(79, 253, 70, 0.701);
+    font-size: 20pt;
+}

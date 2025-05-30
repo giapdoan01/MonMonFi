@@ -1,4 +1,4 @@
-const { ethers } = require("hardhat");
+import { ethers } from "hardhat";
 
 async function main() {
   const uris = [
@@ -14,13 +14,15 @@ async function main() {
     "https://tan-peaceful-otter-575.mypinata.cloud/ipfs/bafybeihavqlqdvgmthig47mtvy6goguojjaf4hhrl4ou7pmmkeq2hcury4/c10.json"
   ];
 
-  const NFT = await ethers.getContractFactory("MyCharacterNFT");
-  const contract = await NFT.deploy(uris);
+  const MonMonFINFT = await ethers.getContractFactory("MonMonFINFT");
+  const contract = await MonMonFINFT.deploy(uris);
+
   await contract.waitForDeployment();
-  console.log("✅ Contract deployed at:", await contract.getAddress());
+
+  console.log(`✅ MonMonFINFT deployed at: ${(await contract.getAddress())}`);
 }
 
 main().catch((error) => {
   console.error("❌ Deployment failed:", error);
-  process.exitCode = 1;
+  process.exit(1);
 });

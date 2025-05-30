@@ -1,7 +1,7 @@
 import { run } from "hardhat";
 
 async function main() {
-  const address = "0x12276D9724906C78C3Ca8964F745197fC8b20B79";
+  const address = "0xD231494Ece1F76557c92479E6961EF64432F958d";
   const args = [
     "https://tan-peaceful-otter-575.mypinata.cloud/ipfs/bafybeihavqlqdvgmthig47mtvy6goguojjaf4hhrl4ou7pmmkeq2hcury4/c1.json",
     "https://tan-peaceful-otter-575.mypinata.cloud/ipfs/bafybeihavqlqdvgmthig47mtvy6goguojjaf4hhrl4ou7pmmkeq2hcury4/c2.json",

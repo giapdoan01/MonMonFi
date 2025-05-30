@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import MyCharacterNFT from "abi/MyCharacterNFT.json";
+import MonMonFINFT from "abi/MonMonFINFT.json";
 import "./CheckNFT.css"
+import { useNFT } from "./NFTcontext";
 
 
-const CONTRACT_ADDRESS = "0x12276D9724906C78C3Ca8964F745197fC8b20B79";
-const MAX_SUPPLY = 1; // Số lượng NFT tối đa của contract
+const CONTRACT_ADDRESS = "0xD231494Ece1F76557c92479E6961EF64432F958d";
+const MAX_SUPPLY = 10; // Số lượng NFT tối đa của contract
 
 interface CheckNFTProps {
   address: string;
@@ -18,6 +19,8 @@ export default function CheckNFT({ address }: CheckNFTProps) {
   const [status, setStatus] = useState<string>("Đang kiểm tra NFT...");
   const [nftImage, setNftImage] = useState<string | null>(null);
   const [nftName, setNftName] = useState<string | null>(null);
+
+  const { refreshKey } = useNFT();
 
   useEffect(() => {
     if (!address) {
@@ -40,7 +43,7 @@ export default function CheckNFT({ address }: CheckNFTProps) {
 
 
         // Nếu chỉ gọi các hàm đọc (view), dùng provider không cần signer
-        const contract = new ethers.Contract(CONTRACT_ADDRESS, MyCharacterNFT.abi, provider);
+        const contract = new ethers.Contract(CONTRACT_ADDRESS, MonMonFINFT.abi, provider);
 
         let found = false;
         for (let tokenId = 1; tokenId <= MAX_SUPPLY; tokenId++) {
@@ -78,7 +81,7 @@ export default function CheckNFT({ address }: CheckNFTProps) {
     }
 
     fetchNFT();
-  }, [address]);
+  }, [address, refreshKey]);
 
   return (
     <div className="nft-container">
