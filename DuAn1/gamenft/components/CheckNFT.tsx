@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import MonMonFINFT from "abi/MonMonFINFT.json";
-import "./CheckNFT.css"
+import "./CheckNFT.css";
 import { useNFT } from "./NFTcontext";
-
 
 const CONTRACT_ADDRESS = "0xD231494Ece1F76557c92479E6961EF64432F958d";
 const MAX_SUPPLY = 10; // Số lượng NFT tối đa của contract
@@ -13,7 +12,6 @@ const MAX_SUPPLY = 10; // Số lượng NFT tối đa của contract
 interface CheckNFTProps {
   address: string;
 }
-
 
 export default function CheckNFT({ address }: CheckNFTProps) {
   const [status, setStatus] = useState<string>("Đang kiểm tra NFT...");
@@ -40,7 +38,6 @@ export default function CheckNFT({ address }: CheckNFTProps) {
         setStatus("Đang kiểm tra NFT...");
         setNftImage(null);
         const provider = new ethers.BrowserProvider((window as any).ethereum);
-
 
         // Nếu chỉ gọi các hàm đọc (view), dùng provider không cần signer
         const contract = new ethers.Contract(CONTRACT_ADDRESS, MonMonFINFT.abi, provider);
@@ -74,8 +71,12 @@ export default function CheckNFT({ address }: CheckNFTProps) {
           setStatus("Ví chưa sở hữu NFT nào.");
           setNftImage(null);
         }
-      } catch (error: any) {
-        setStatus("Lỗi khi kiểm tra NFT: " + (error.message || error));
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setStatus("Lỗi khi kiểm tra NFT: " + error.message);
+        } else {
+          setStatus("Lỗi khi kiểm tra NFT.");
+        }
         setNftImage(null);
       }
     }
@@ -89,7 +90,6 @@ export default function CheckNFT({ address }: CheckNFTProps) {
         <div className="nft-display">
           <img src={nftImage || "/placeholder.svg?height=300&width=300"} alt="NFT Character" className="nft-image" />
           <div className="nft-glow"></div>
-           
         </div>
       ) : (
         <div className="status-message">{status}</div>
