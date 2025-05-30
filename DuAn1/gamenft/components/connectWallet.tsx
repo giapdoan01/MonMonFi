@@ -1,34 +1,46 @@
-
 "use client"
-import { useState } from "react"
-import { Wallet, LogOut } from 'lucide-react'
-import "./connect-wallet.css"
+import { useState } from "react";
+import { Wallet, LogOut } from "lucide-react";
+import "./connect-wallet.css";
+import type { Eip1193Provider } from "ethers";
 
-export default function ConnectWallet({address, setAddress}: {address: string; setAddress: (addr: string) => void;}) {
-  const [isConnecting, setIsConnecting] = useState(false)
+declare global {
+  interface Window {
+    ethereum?: Eip1193Provider;
+  }
+}
+
+export default function ConnectWallet({
+  address,
+  setAddress,
+}: {
+  address: string;
+  setAddress: (addr: string) => void;
+}) {
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const connect = async () => {
-    if (!(window as any).ethereum) {
-      alert("Please install MetaMask!")
-      return
+    if (!window.ethereum) {
+      alert("Please install MetaMask!");
+      return;
     }
 
-    setIsConnecting(true)
+    setIsConnecting(true);
     try {
-      const accounts = await (window as any).ethereum.request({
+      const accounts: string[] = await window.ethereum.request({
         method: "eth_requestAccounts",
-      })
-      setAddress(accounts[0])
+      });
+      setAddress(accounts[0]);
     } catch (err) {
-      console.error("Error connecting wallet:", err)
+      console.error("Error connecting wallet:", err);
     } finally {
-      setIsConnecting(false)
+      setIsConnecting(false);
     }
-  }
+  };
 
   const disconnect = () => {
-    setAddress("")
-  }
+    setAddress("");
+  };
 
   return (
     <div className="wallet-container">
@@ -47,7 +59,7 @@ export default function ConnectWallet({address, setAddress}: {address: string; s
                 {address.slice(0, 6)}...{address.slice(-4)}
               </p>
             </div>
-            
+
             <button onClick={disconnect} className="disconnect-button">
               <LogOut className="logout-icon" />
             </button>
@@ -55,7 +67,11 @@ export default function ConnectWallet({address, setAddress}: {address: string; s
         </div>
       ) : (
         <div className="wallet-connect-container">
-          <button onClick={connect} disabled={isConnecting} className="connect-button">
+          <button
+            onClick={connect}
+            disabled={isConnecting}
+            className="connect-button"
+          >
             <div className="button-background"></div>
             <div className="button-glow"></div>
             <div className="button-content">
@@ -77,5 +93,5 @@ export default function ConnectWallet({address, setAddress}: {address: string; s
         </div>
       )}
     </div>
-  )
+  );
 }

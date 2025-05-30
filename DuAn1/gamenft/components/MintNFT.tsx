@@ -1,17 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import MonMonFINFT from "abi/MonMonFINFT.json"
+import { ethers, Eip1193Provider } from "ethers";
+import MonMonFINFT from "abi/MonMonFINFT.json";
 import "./MintNFT.css";
 import { useNFT } from "./NFTcontext";
 
 const CONTRACT_ADDRESS = "0xD231494Ece1F76557c92479E6961EF64432F958d";
 const MAX_SUPPLY = 10;
 
-
 interface MintPageProps {
   address: string;
+}
+
+declare global {
+  interface Window {
+    ethereum?: Eip1193Provider;
+  }
 }
 
 export default function MintPage({ address }: MintPageProps) {
@@ -22,23 +27,22 @@ export default function MintPage({ address }: MintPageProps) {
   const [isOwner, setIsOwner] = useState(false);
   const [tokenAvailable, setTokenAvailable] = useState(false);
 
-
   const { triggerRefresh } = useNFT();
 
-  // Kiểm tra các điều kiện cần thiết
   useEffect(() => {
     if (!address) return;
 
+    const ethereum = window.ethereum;
+    if (!ethereum) return;
+
     const checkConditions = async () => {
       try {
-        const provider = new ethers.BrowserProvider((window as any).ethereum);
+        const provider = new ethers.BrowserProvider(ethereum);
         const contract = new ethers.Contract(CONTRACT_ADDRESS, MonMonFINFT.abi, provider);
 
-        // Check nếu là owner
         const owner = await contract.owner();
         setIsOwner(owner.toLowerCase() === address.toLowerCase());
 
-        // Check nếu đã sở hữu NFT
         let ownsNFT = false;
         for (let tokenId = 1; tokenId <= MAX_SUPPLY; tokenId++) {
           try {
@@ -51,7 +55,6 @@ export default function MintPage({ address }: MintPageProps) {
         }
         setHasNFT(ownsNFT);
 
-        // Check nếu còn NFT chưa được chuyển từ owner
         let available = false;
         for (let tokenId = 1; tokenId <= MAX_SUPPLY; tokenId++) {
           try {
@@ -64,12 +67,15 @@ export default function MintPage({ address }: MintPageProps) {
         }
         setTokenAvailable(available);
 
-        // Check số dư đủ để mint
         const balance = await provider.getBalance(address);
         const mintPrice: bigint = await contract.mintPrice();
         setSufficientBalance(balance >= mintPrice);
-      } catch (err) {
-        console.error("Lỗi khi kiểm tra điều kiện mint:", err);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error("Lỗi khi kiểm tra điều kiện mint:", err.message);
+        } else {
+          console.error("Lỗi khi kiểm tra điều kiện mint:", err);
+        }
         setHasNFT(false);
         setSufficientBalance(false);
         setTokenAvailable(false);
@@ -82,11 +88,17 @@ export default function MintPage({ address }: MintPageProps) {
   const mintNFT = async () => {
     if (!address || loading || hasNFT || isOwner || !sufficientBalance || !tokenAvailable) return;
 
+    const ethereum = window.ethereum;
+    if (!ethereum) {
+      setStatus("Vui lòng cài MetaMask!");
+      return;
+    }
+
     try {
       setLoading(true);
       setStatus("🔄 Đang gửi giao dịch...");
 
-      const provider = new ethers.BrowserProvider((window as any).ethereum);
+      const provider = new ethers.BrowserProvider(ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS, MonMonFINFT.abi, signer);
       const price = await contract.mintPrice();
@@ -97,9 +109,14 @@ export default function MintPage({ address }: MintPageProps) {
       setStatus("✅ Minted");
       setHasNFT(true);
       triggerRefresh();
-    } catch (err: any) {
-      console.error("Mint lỗi:", err);
-      setStatus("❌ Mint thất bại: " + (err.reason || err.message));
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setStatus("❌ Mint thất bại: " + err.message);
+        console.error("Mint lỗi:", err.message);
+      } else {
+        setStatus("❌ Mint thất bại.");
+        console.error("Mint lỗi:", err);
+      }
     } finally {
       setLoading(false);
     }
@@ -107,8 +124,6 @@ export default function MintPage({ address }: MintPageProps) {
 
   const isMintDisabled =
     !address || loading || hasNFT || isOwner || !sufficientBalance || !tokenAvailable;
-
-  
 
   return (
     <div className="mint-container">
@@ -123,10 +138,10 @@ export default function MintPage({ address }: MintPageProps) {
       <p className="mint-status">{status}</p>
 
       {hasNFT && <p className="mint-info-success"> You already have NFT.</p>}
-      {isOwner && <p className="mint-info-error"> Chủ sở hữu không thể mint NFT.</p>}
-      {!tokenAvailable && <p className="mint-info-error"> Không còn NFT để mint.</p>}
+      {isOwner && <p className="mint-info-error"> Owner can not mint NFT</p>}
+      {!tokenAvailable && <p className="mint-info-error"> No more NFTs to mint</p>}
       {!sufficientBalance && address && (
-        <p className="mint-info-error"> Ví không đủ ETH để mint.</p>
+        <p className="mint-info-error"> not enough ETH</p>
       )}
     </div>
   );
