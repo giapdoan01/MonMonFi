@@ -94,7 +94,7 @@ export default function MintPage({ address }: MintPageProps) {
       const tx = await contract.mint({ value: price });
       await tx.wait();
 
-      setStatus("✅ Mint thành công!");
+      setStatus("✅ Minted");
       setHasNFT(true);
       triggerRefresh();
     } catch (err: any) {
@@ -122,11 +122,11 @@ export default function MintPage({ address }: MintPageProps) {
 
       <p className="mint-status">{status}</p>
 
-      {hasNFT && <p className="mint-info-success">🟢 Bạn đã sở hữu NFT.</p>}
-      {isOwner && <p className="mint-info-error">🔴 Chủ sở hữu không thể mint NFT.</p>}
-      {!tokenAvailable && <p className="mint-info-error">🔴 Không còn NFT để mint.</p>}
+      {hasNFT && <p className="mint-info-success"> You already have NFT.</p>}
+      {isOwner && <p className="mint-info-error"> Chủ sở hữu không thể mint NFT.</p>}
+      {!tokenAvailable && <p className="mint-info-error"> Không còn NFT để mint.</p>}
       {!sufficientBalance && address && (
-        <p className="mint-info-error">🔴 Ví không đủ ETH để mint.</p>
+        <p className="mint-info-error"> Ví không đủ ETH để mint.</p>
       )}
     </div>
   );
