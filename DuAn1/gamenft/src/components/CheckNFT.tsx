@@ -3,18 +3,13 @@
 import { useEffect, useState } from "react"
 import { ethers, type Eip1193Provider } from "ethers"
 import { RefreshCw } from "lucide-react"
-import "./checkNFT.css"
+import "./CheckNFT.css"
+import MonMonFINFT from "abi/MonMonFINFT.json"
 
 const CONTRACT_ADDRESS = "0xD231494Ece1F76557c92479E6961EF64432F958d"
 const MAX_SUPPLY = 10
 
 // Mock ABI - thay thế bằng ABI thực tế của bạn
-const MonMonFINFT = {
-  abi: [
-    "function ownerOf(uint256 tokenId) view returns (address)",
-    "function tokenURI(uint256 tokenId) view returns (string)",
-  ],
-}
 
 interface CheckNFTProps {
   address: string
