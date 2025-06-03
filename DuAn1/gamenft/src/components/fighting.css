@@ -1,0 +1,191 @@
+/* Container styles */
+.fighting-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fccfb3 100%);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 20rem;
+  height: 300px; /* Chiều cao cố định giống các card khác */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.fighting-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Fighting Info Area */
+.fighting-info-area {
+
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.fighting-title {
+  color: #4b5563;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.fighting-description {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+  max-width: 90%;
+}
+
+/* Fighting Icon */
+.fighting-icon-container {
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.fighting-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #ef4444;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+}
+
+.fighting-icon-glow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2), transparent 70%);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  z-index: -1;
+}
+
+/* Status Badge */
+.status-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
+}
+
+/* Fighting Button */
+.fighting-button {
+  width: 100%;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  text-decoration: none;
+}
+
+.fighting-button:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: scale(1.05);
+}
+
+.button-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Shine effect */
+.fighting-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-12deg);
+  transition: left 1s ease;
+}
+
+.fighting-button:hover::before {
+  left: 100%;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .fighting-card {
+    padding: 1.5rem;
+    margin: 1rem;
+    height: 280px;
+  }
+
+  .fighting-info-area {
+    padding: 1.5rem;
+  }
+
+  .fighting-title {
+    font-size: 1.25rem;
+  }
+
+  .fighting-description {
+    font-size: 0.875rem;
+  }
+
+  .fighting-button {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .fighting-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

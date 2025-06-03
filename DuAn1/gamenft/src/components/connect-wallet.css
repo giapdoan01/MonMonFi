@@ -1,0 +1,207 @@
+/* Container styles */
+
+.wallet-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fccfb3 100%);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+  width: 20rem;
+  height: 320px; /* Thêm chiều cao cố định */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%; /* Chiếm toàn bộ chiều cao */
+  justify-content: space-between; /* Phân bố đều các phần tử */
+}
+
+/* Content area styles */
+.wallet-status-area {
+  
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  flex: 1; /* Chiếm không gian còn lại */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallet-status-area.connected {
+  padding: 2rem;
+}
+
+.wallet-status-text {
+  color: #4b5563;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Connected state styles */
+.wallet-connected-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.wallet-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #059669;
+}
+
+.status-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.wallet-address {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-family: "Courier New", monospace;
+  margin: 0.5rem 0 0 0;
+}
+
+.connected-status-text {
+  color: #374151;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Button styles */
+.wallet-button {
+  width: 100%;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.connect-button {
+  background: linear-gradient(135deg, #fb923c 0%, #fbbf24 100%);
+  color: white;
+}
+
+.connect-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
+  transform: scale(1.05);
+}
+
+.connect-button:disabled {
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.disconnect-button {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  color: white;
+}
+
+.disconnect-button:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transform: scale(1.05);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.button-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Shine effect */
+.wallet-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-12deg);
+  transition: left 1s ease;
+}
+
+.wallet-button:hover::before {
+  left: 100%;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .wallet-card {
+    padding: 1.5rem;
+    margin: 1rem;
+    height: 280px; /* Chiều cao nhỏ hơn cho mobile */
+  }
+
+  .wallet-status-area {
+    padding: 2rem 1rem;
+  }
+
+  .wallet-status-area.connected {
+    padding: 1.5rem;
+  }
+
+  .wallet-status-text {
+    font-size: 1rem;
+  }
+
+  .wallet-button {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import "components/header.css";
+import "../components/header.css";
 
 export default function Navbar() {
   return (

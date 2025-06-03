@@ -1,0 +1,165 @@
+/* Container styles */
+.marketplace-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fccfb3 100%);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+  width: 40rem;
+  height: 218px; /* Chiều cao cố định giống các card khác */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.marketplace-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Marketplace Info Area */
+.marketplace-info-area {
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.marketplace-title {
+  color: #4b5563;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.marketplace-description {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+  max-width: 90%;
+}
+
+/* Marketplace Icon */
+.marketplace-icon-container {
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.marketplace-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #f88025;
+  filter: drop-shadow(0 0 8px rgba(255, 147, 53, 0.805));
+}
+
+.marketplace-icon-glow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(8, 145, 178, 0.2), transparent 70%);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  z-index: -1;
+}
+
+/* Marketplace Button */
+.marketplace-button {
+  width: 100%;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #fab381 0%, #ff8009 100%);
+  color: white;
+  text-decoration: none;
+}
+
+.marketplace-button:hover {
+  background: linear-gradient(135deg, #fab381 0%, #ff8009 100%);
+  transform: scale(1.05);
+}
+
+.button-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Shine effect */
+.marketplace-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-12deg);
+  transition: left 1s ease;
+}
+
+.marketplace-button:hover::before {
+  left: 100%;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .marketplace-card {
+    padding: 1.5rem;
+    margin: 1rem;
+    height: 280px;
+  }
+
+  .marketplace-info-area {
+    padding: 1.5rem;
+  }
+
+  .marketplace-title {
+    font-size: 1.25rem;
+  }
+
+  .marketplace-description {
+    font-size: 0.875rem;
+  }
+
+  .marketplace-button {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .marketplace-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
