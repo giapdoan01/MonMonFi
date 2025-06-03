@@ -1,6 +1,6 @@
 "use client"
 
-import { Store, ExternalLink } from "lucide-react"
+import { Store} from "lucide-react"
 import "./Marketplace.css"
 
 

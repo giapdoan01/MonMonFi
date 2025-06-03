@@ -6,7 +6,6 @@ import CheckNFT from "../components/CheckNFT"
 import "bootstrap/dist/css/bootstrap.min.css"
 import MintNFT from "@/components/MintNFT"
 import Marketplace from "@/components/Marketplace"
-import { NFTProvider } from "../components//NFTcontext"
 import Faucet from "@/components/faucet"
 import Fighting from "@/components/fighting"
 
