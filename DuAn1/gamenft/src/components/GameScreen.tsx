@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, type CSSProperties } from "react"
 
 const icons = ["🍒", "🍇", "🍋", "🍎", "🥝"]
 const BOARD_SIZE = 8
@@ -113,7 +113,7 @@ const generateSafeBoard = (): string[][] => {
   return board
 }
 
-export default function PureCSSGameScreen() {
+export default function FixedGameScreen() {
   const [board, setBoard] = useState<string[][]>([])
   const [playerHP, setPlayerHP] = useState(100)
   const [enemyHP, setEnemyHP] = useState(100)
@@ -142,7 +142,7 @@ export default function PureCSSGameScreen() {
     const effect: DamageEffect = {
       id,
       damage,
-      x: target === "player" ? 50 : window.innerWidth - 100,
+      x: target === "player" ? 50 : typeof window !== "undefined" ? window.innerWidth - 100 : 500,
       y: 150,
       target,
     }
@@ -304,6 +304,7 @@ export default function PureCSSGameScreen() {
   const styles = {
     container: {
       minHeight: "100vh",
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       padding: "20px",
       fontFamily: "Arial, sans-serif",
       position: "relative" as const,
@@ -442,7 +443,8 @@ export default function PureCSSGameScreen() {
       boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
       background: "linear-gradient(135deg, #e0f2fe, #b3e5fc)",
       userSelect: "none" as const,
-    },
+      pointerEvents: "auto" as const,
+    } as CSSProperties,
     cellSelected: {
       background: "linear-gradient(135deg, #ffd54f, #ffb300)",
       transform: "scale(1.1)",
@@ -453,6 +455,9 @@ export default function PureCSSGameScreen() {
       background: "linear-gradient(135deg, #ff8a80, #ff5722)",
       transform: "scale(1.05)",
       animation: "matchPulse 0.8s ease-in-out infinite",
+    },
+    cellDisabled: {
+      pointerEvents: "none" as const,
     },
     turnIndicator: {
       textAlign: "center" as const,
@@ -559,7 +564,7 @@ export default function PureCSSGameScreen() {
                   const isSelected = selected?.[0] === r && selected?.[1] === c
                   const isMatching = matchingCells.has(`${r}-${c}`)
 
-                  let cellStyle = { ...styles.cell }
+                  let cellStyle: CSSProperties = { ...styles.cell }
 
                   if (isSelected) {
                     cellStyle = { ...cellStyle, ...styles.cellSelected }
@@ -568,7 +573,7 @@ export default function PureCSSGameScreen() {
                   }
 
                   if (isSwapping) {
-                    cellStyle.pointerEvents = "none"
+                    cellStyle = { ...cellStyle, ...styles.cellDisabled }
                   }
 
                   return (
