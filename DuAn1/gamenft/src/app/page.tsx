@@ -22,7 +22,7 @@ export default function Home() {
       <div className={styles.containerMintNFTMarketplaceFighting}>
         <div className={styles.containerMintNFTFighting}>
           <MintNFT address={address}/>
-          <Fighting/>
+          <Fighting fightingUrl="/Fight"/>
         </div>
         <Marketplace/>
       </div>

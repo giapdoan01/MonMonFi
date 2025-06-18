@@ -8,7 +8,7 @@ interface FightingProps {
   fightingUrl?: string
 }
 
-export default function Fighting({ fightingUrl = "/fighting" }: FightingProps) {
+export default function Fighting({ fightingUrl = "/Fight" }: FightingProps) {
   return (
     <div className="fighting-card">
       <div className="fighting-content">
