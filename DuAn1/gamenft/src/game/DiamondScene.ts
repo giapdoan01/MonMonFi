@@ -8,7 +8,8 @@ export interface DiamondSceneConfig {
   gemTypes: number;
   assetKey: string;
   assetPath: string;
-  gridMap?: number[][]; // 1: có gem, 0: không có gem
+  gridMap?: number[][]; // 1: có gem, 0: không có gem\\
+  gemLayout?: number[][]; // Cố định vị trí và loại gem, nếu không có thì sẽ random
 }
 
 // Factory function: truyền Phaser vào, trả về class DiamondScene
@@ -254,10 +255,18 @@ export function createDiamondScene(Phaser: any) {
           } else {
             isGemCell = Math.abs(row - center) + Math.abs(col - center) <= center;
           }
+
           if (isGemCell) {
             const x = startX + col * tileSize;
             const y = startY + row * tileSize;
-            const type = Phaser.Math.Between(0, gemTypes - 1);
+
+            let type: number;
+            if (this.config.gemLayout && this.config.gemLayout[row]?.[col] !== undefined) {
+              type = this.config.gemLayout[row][col]; // lấy từ gemLayout
+            } else {
+              type = Phaser.Math.Between(0, gemTypes - 1); // fallback random
+            }
+
             const gem = this.add
               .sprite(x, y, assetKey, type)
               .setDisplaySize(tileSize, tileSize)

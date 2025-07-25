@@ -24,6 +24,7 @@ export default function GameScreen({ levelIndex = 0 }: GameScreenProps) {
         type: Phaser.AUTO,
         width: config.gridSize * config.tileSize + config.startX * 2,
         height: config.gridSize * config.tileSize + config.startY * 2,
+        pixelArt: true,
         backgroundColor: "#77BEF0",
         parent: containerRef.current,
         scene: scene,
