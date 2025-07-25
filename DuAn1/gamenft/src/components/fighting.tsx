@@ -5,10 +5,10 @@ import Link from "next/link"
 import "./fighting.css"
 
 interface FightingProps {
-  fightingUrl?: string
+  fightingUrl?: string;
 }
 
-export default function Fighting({ fightingUrl = "/Fight" }: FightingProps) {
+export default function Fighting({ fightingUrl = "/LevelMenu" }: FightingProps) {
   return (
     <div className="fighting-card">
       <div className="fighting-content">

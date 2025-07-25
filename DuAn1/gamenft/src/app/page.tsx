@@ -8,6 +8,12 @@ import MintNFT from "@/components/MintNFT"
 import Marketplace from "@/components/Marketplace"
 import Faucet from "@/components/faucet"
 import Fighting from "@/components/fighting"
+import dynamic from 'next/dynamic';
+
+// ✅ Import động + tắt SSR
+const PhaserGame = dynamic(() => import('@/components/GameScreen'), {
+  ssr: false,
+});
 
 export default function Home() {
   const [address, setAddress] = useState("")
