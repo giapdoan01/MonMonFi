@@ -1,25 +1,27 @@
-"use client";
+"use client"
 
-import { useEffect, useRef } from "react";
-import "./GameScreen.css";
-import { createDiamondScene} from "../game/DiamondScene";
-import { levelConfigs } from "../game/levelConfigs";
+import { useEffect, useRef } from "react"
+import "./GameScreen.css"
+import { createDiamondScene } from "../game/DiamondScene"
+import { levelConfigs } from "../game/levelConfigs"
+import type Phaser from "phaser"
 
 interface GameScreenProps {
-  levelIndex?: number;
+  levelIndex?: number
 }
 
 export default function GameScreen({ levelIndex = 0 }: GameScreenProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const gameRef = useRef<any>(null);
-  const config = levelConfigs[levelIndex] || levelConfigs[0];
+  const containerRef = useRef<HTMLDivElement>(null)
+  // Fix: Replace 'any' with proper Phaser.Game type
+  const gameRef = useRef<Phaser.Game | null>(null)
+  const config = levelConfigs[levelIndex] || levelConfigs[0]
 
   useEffect(() => {
-    let destroyed = false;
+    let destroyed = false
     import("phaser").then((Phaser) => {
-      if (!containerRef.current || gameRef.current || destroyed) return;
-      const DiamondScene = createDiamondScene();
-      const scene = new DiamondScene(config);
+      if (!containerRef.current || gameRef.current || destroyed) return
+      const DiamondScene = createDiamondScene()
+      const scene = new DiamondScene(config)
       gameRef.current = new Phaser.Game({
         type: Phaser.AUTO,
         width: config.gridSize * config.tileSize + config.startX * 2,
@@ -28,15 +30,16 @@ export default function GameScreen({ levelIndex = 0 }: GameScreenProps) {
         backgroundColor: "#77BEF0",
         parent: containerRef.current,
         scene: scene,
-      });
-    });
+      })
+    })
     return () => {
-      destroyed = true;
+      destroyed = true
       if (gameRef.current) {
-        gameRef.current.destroy(true);
-        gameRef.current = null;
+        gameRef.current.destroy(true)
+        gameRef.current = null
       }
-    };
-  }, [config]);
-  return <div ref={containerRef} className="game-container" />;
+    }
+  }, [config])
+
+  return <div ref={containerRef} className="game-container" />
 }

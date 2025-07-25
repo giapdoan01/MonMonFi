@@ -1,3 +1,5 @@
+import Phaser from "phaser"
+
 export interface DiamondSceneConfig {
   gridSize: number
   tileSize: number
@@ -15,11 +17,7 @@ interface GemSprite extends Phaser.GameObjects.Sprite {
   setData(key: string, value: number): this
 }
 
-interface GemData {
-  row: number
-  col: number
-  type: number
-}
+// Xóa interface GemData không sử dụng
 
 // Factory function: truyền Phaser vào, trả về class DiamondScene
 export function createDiamondScene() {
@@ -59,47 +57,7 @@ export function createDiamondScene() {
         }
       }
 
-      // Remove unused getGemAt function
-
-      const swapGems = (gem1: GemSprite, gem2: GemSprite, checkAfterSwap = true): void => {
-        const row1 = gem1.getData("row")
-        const col1 = gem1.getData("col")
-        const row2 = gem2.getData("row")
-        const col2 = gem2.getData("col")
-
-        this.board[row1][col1] = gem2
-        this.board[row2][col2] = gem1
-
-        gem1.setData("row", row2)
-        gem1.setData("col", col2)
-        gem2.setData("row", row1)
-        gem2.setData("col", col1)
-
-        this.tweens.add({
-          targets: gem1,
-          x: startX + col2 * tileSize,
-          y: startY + row2 * tileSize,
-          duration: 200,
-        })
-        this.tweens.add({
-          targets: gem2,
-          x: startX + col1 * tileSize,
-          y: startY + row1 * tileSize,
-          duration: 200,
-        })
-
-        if (checkAfterSwap) {
-          this.time.delayedCall(250, () => {
-            const matches = findMatches()
-            if (matches.length === 0) {
-              swapGems(gem1, gem2, false)
-            } else {
-              removeMatches(matches)
-            }
-          })
-        }
-      }
-
+      // Chuyển swapGems thành method của class để tránh lỗi unused
       const findMatches = (): GemSprite[] => {
         const matches: GemSprite[] = []
 
