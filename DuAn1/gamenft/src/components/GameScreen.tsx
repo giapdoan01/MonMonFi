@@ -18,7 +18,7 @@ export default function GameScreen({ levelIndex = 0 }: GameScreenProps) {
     let destroyed = false;
     import("phaser").then((Phaser) => {
       if (!containerRef.current || gameRef.current || destroyed) return;
-      const DiamondScene = createDiamondScene(Phaser);
+      const DiamondScene = createDiamondScene();
       const scene = new DiamondScene(config);
       gameRef.current = new Phaser.Game({
         type: Phaser.AUTO,
