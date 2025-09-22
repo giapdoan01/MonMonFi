@@ -4,11 +4,7 @@ import { Swords, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import "./fighting.css"
 
-interface FightingProps {
-  fightingUrl?: string;
-}
-
-export default function Fighting({ fightingUrl = "/LevelMenu" }: FightingProps) {
+export default function Fighting() {
   return (
     <div className="fighting-card">
       <div className="fighting-content">
@@ -21,7 +17,7 @@ export default function Fighting({ fightingUrl = "/LevelMenu" }: FightingProps) 
           <h3 className="fighting-title">FIGHTING</h3>
         </div>
 
-        <Link href={fightingUrl} className="fighting-button">
+        <Link href="/Fight" className="fighting-button">
           <Swords className="button-icon" />
           <span>Fight</span>
           <ArrowRight className="button-icon" />

@@ -1,0 +1,16 @@
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.unity-canvas {
+  width: 100%;                /* chiếm toàn bộ chiều ngang */
+  max-width: 1280px;          /* giới hạn max (desktop) */
+  aspect-ratio: 16 / 9;       /* giữ đúng tỉ lệ 16:9 */
+  background: grey;
+  border: 2px solid #444;
+}
