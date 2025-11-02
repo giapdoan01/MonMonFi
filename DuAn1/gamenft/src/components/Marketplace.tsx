@@ -1,28 +1,27 @@
 "use client"
 
-import { Store} from "lucide-react"
+import { Glasses } from "lucide-react"
+import Link from "next/link"
 import "./Marketplace.css"
 
 
-interface MarketplaceProps {
-  marketplaceUrl?: string
-}
 
-export default function Marketplace({ marketplaceUrl = "https://opensea.io/" }: MarketplaceProps) {
+export default function Marketplace() {
   return (
     <div className="marketplace-card">
       <div className="marketplace-content">
         <div className="marketplace-info-area">
           <div className="marketplace-icon-container">
-            <Store className="marketplace-icon" />
+            <Glasses className="marketplace-icon" />
+            
             <div className="marketplace-icon-glow"></div>
           </div>
         </div>
-
-        <a href={marketplaceUrl} target="_blank" rel="noopener noreferrer" className="marketplace-button">
         
-          <span>Marketplace</span>
-        </a>
+        
+        <Link href="/VrView" className="fighting-button">
+          <span>VrView</span>
+        </Link>
       </div>
     </div>
   )
